@@ -115,7 +115,7 @@ appModule
   
   $scope.checkSectionAvaiable = function (section) {
     return _.find($scope.usingSections, function (sec) {
-      return sec.id == section.id;
+      return sec && sec.id == section.id;
     })
   }
 
@@ -126,8 +126,8 @@ appModule
     }).then(function (newSection) {
       $scope.newSectionName = '';
       $scope.addedSections.push(newSection);
+      $state.reload();
     }, function (err) {
-      
       AlertService.failAlert(err.data.invalidAttributes.name[0].message);
     })
   }
