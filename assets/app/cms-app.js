@@ -176,6 +176,12 @@ appModule
   }
 
 
+  $scope.openAddLockedPopup = function () {
+    ModalService.showAddLockedFieldPopup().result.then(function (newField) {
+      $scope.usingSections[0].fields.unshift(newField);
+    })
+  }
+
   // Sortable
   $scope.addNewPrebuildField = function () {
     var newField = {

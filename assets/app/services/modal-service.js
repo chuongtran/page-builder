@@ -12,6 +12,18 @@ angular.module('CMSApp.services')
 					}
 				},
 				controller: 'addPrebuildFieldCtrl',
+				templateUrl: 'app/templates/add-prebuild-field-popup.html'
+			});
+		},
+
+		showAddLockedFieldPopup: function () {
+			return $uibModal.open({
+				backdrop: 'static',
+				size: 'lg',
+				resolve: {
+					isLocked: true,
+				},
+				controller: 'addLockedPopupCtrl',
 				templateUrl: 'app/templates/add-locked-field-popup.html'
 			});
 		},
@@ -122,6 +134,32 @@ angular.module('CMSApp.services')
 	}, 300);
 	$scope.updateChoice = function (choice) {
 		Restangular.one('choices').post(choice.id, choice);
+	}
+})
+
+.controller('addLockedPopupCtrl', function ($scope, $uibModalInstance, Restangular, isLocked, StaticParams, AlertService) {
+	$scope.types = StaticParams.types;
+
+	$scope.isLocked = isLocked;
+	$scope.field = {
+		name: '',
+		type: '',
+		required: false,
+		isTemplate: false,
+		isLocked: true,
+		sectionId: 1,
+	}
+	$scope.addPrebuildField = function () {
+		Restangular.one('fields').post('', $scope.field)
+			.then(function (newField) {
+				return $uibModalInstance.close(newField);
+			}, function () {
+				AlertService.failAlert('FAIL');
+			})
+	}
+
+	$scope.cancel = function () {
+		$uibModalInstance.close();
 	}
 })
 
