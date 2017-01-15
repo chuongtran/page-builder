@@ -12,7 +12,7 @@ angular.module('CMSApp.services')
 					}
 				},
 				controller: 'addPrebuildFieldCtrl',
-				templateUrl: 'app/templates/add-prebuild-field-popup.html'
+				templateUrl: 'app/templates/add-locked-field-popup.html'
 			});
 		},
 
@@ -58,12 +58,12 @@ angular.module('CMSApp.services')
 		isLocked: false
 	}
 	if ($scope.isLocked) {
-		$scope.newField.isLocked = true;
-		$scope.newField.isTemplate = false;
-		$scope.newField.sectionId = 1;
+		$scope.field.isLocked = true;
+		$scope.field.isTemplate = false;
+		$scope.field.sectionId = 1;
 	}
 	$scope.addPrebuildField = function () {
-		Restangular.one('fields').post('', $scope.newField)
+		Restangular.one('fields').post('', $scope.field)
 			.then(function (newField) {
 				return $uibModalInstance.close(newField);
 			}, function () {
