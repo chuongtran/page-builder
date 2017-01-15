@@ -1,0 +1,35 @@
+form-section {
+	.single-field {
+		position: relative;
+		margin-bottom: 15px;
+		padding-right: 24px;
+		&:before {
+			content: "";
+			position: absolute;
+			left: -15px;
+			width: 10px;
+			top: 0;
+			bottom: 0;
+			background: @black;
+		}
+		&.locked:before {
+			background: red;
+		}
+		.choices {
+			padding-left: 20px;
+		}
+		.remove-btn {
+			position: absolute;
+			right: 0;
+			width: 24px;
+			text-align: center;
+
+			i {
+				line-height: 34px;
+			}
+		}
+	}
+	.fields {
+		padding: 20px 30px;
+	}
+}

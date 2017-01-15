@@ -1,0 +1,24 @@
+<div class="choices" ui-sortable ng-model="field.choices" ng-show="field.type =='select' || field.type=='multi-select'">
+  <div ng-repeat="choice in field.choices">
+    <div class="row form-group">
+      <div class="col-md-5">
+        <input class="form-control" ng-model="choice.name" placeholder="Choice name" ng-change="waitingForUpdateChoice(choice)"/>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" ng-model="choice.sectionToAdd" ng-change="updateChoice(choice); prepareUsingSections(choice)" ng-disabled="field.type=='multi-select'">
+          <option value>Don't add section</option>
+          <option ng-repeat="aSection in addedSections" ng-disabled="checkSectionAvaiable(aSection)" value="{{aSection.id}}">Add section: {{aSection.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" ng-model="choice.value" placeholder="Choice Value" ng-change="waitingForUpdateChoice(choice)">
+      </div>
+      <div class="col-md-1">
+        <a ng-click="removeChoice(field, choice)" href="#"><i class="fa fa-remove"></i></a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-default" ng-click="addNewChoice(field)">+ Add new choice</button>
+  </div>
+</div>

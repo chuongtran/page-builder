@@ -53,7 +53,7 @@ module.exports.connections = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'ticket'
+    database: 'form-builder'
   },
 
   /***************************************************************************

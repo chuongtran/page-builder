@@ -1,0 +1,45 @@
+<div id="content">
+	<div class="clearfix">
+		<div class="col-md-9">
+			<div class="sections">
+				<div class="single-section box" ng-repeat="section in usingSections">
+					<form-section added-sections="addedSections" section="section" using-sections="usingSection" grouped-sections="groupedSections"></form-section>
+				</div>
+			</div>
+		</div>
+		<div id="sidebar" class="col-md-3">
+			<div class="box added-sections">	
+				<h4>Sections</h4>
+				<ul class="list">
+					<li ng-repeat="aSection in addedSections track by $index">
+						<span>{{$index+1}}&nbsp;&nbsp;</span>
+						<span>{{aSection.name}}</span>
+						<a class="pull-right" ng-click="removeSection(aSection);"><i class="fa fa-remove"></i></a>
+
+					</li>
+				</ul>
+				<form class="add-form" ng-submit="addNewSection()">
+					<input class="form-control" ng-model="newSectionName" />
+					<button class="btn">New</button>
+				</form>
+			</div>
+			<div class="box added-sections">	
+				<h4>Prebuild Fields</h4>
+				<ul class="list" ui-sortable="prebuildSortable" ng-model="prebuildFields">
+					<li ng-repeat="field in prebuildFields track by $index">
+						<span>{{$index+1}}&nbsp;&nbsp;</span>
+						<span>{{field.name}}</span>
+						<a class="pull-right" ng-click="removePrebuildField(field);"><i class="fa fa-remove"></i></a>
+
+					</li>
+				</ul>
+				<div class="text-center">
+					<button ng-click="openAddPrebuildPopup()" class="btn btn-primary">Add new prebuild field</button>
+				</div>
+			</div>
+			<div class="box text-center">
+				<button ng-click="openAddPrebuildPopup(true)" class="btn btn-default">Locked Fields</button>
+			</div>
+		</div>
+	</div>
+</div>

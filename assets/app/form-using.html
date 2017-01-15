@@ -1,0 +1,32 @@
+<h1>aaa</h1>
+<div class="container">
+	<form name="ticketForm">
+		<div class="sections">
+			<div ng-repeat="section in usingSections">
+				<h3>{{section.name}}</h3>
+				<p class="description">{{section.description}}</p>
+				<div class="section-fields row" ng-show="section.fields.length">
+					<div ng-repeat="field in section.fields" class="col-md-4 col-sm-6">
+						<label ng-if="field.type=='text' || field.type=='email'" class="clearfix">
+							<span>{{field.name}}</span>
+							<input type="{{field.type}}" ng-model="form['field-'+field.id]" ng-required="field.required"  class="form-control"/>
+						</label>
+						<label ng-if="field.type=='select' || field.type=='multi-select'" ng-show="field.choices.length">
+							<span>{{field.name}}</span>
+							<select  ng-show="field.choices.length" ng-model="field.fieldValue" ng-change="pushAddSectionFields(field)" ui-select2 ng-multiple="{{field.type=='multi-select'}}" ng-if="field.type != 'multi-select'">
+								<option value>Select</option>
+								<option ng-repeat="choice in field.choices" value="{{choice}}" >{{choice.name}}</option>
+							</select>
+
+							<select  ng-show="field.choices.length" ng-model="tmpString" ui-select2="groupSetup" ng-multiple="{{field.type=='multi-select'}}" ng-if="field.type == 'multi-select'" data-placeholder="{{field.name}}" ng-options="choice.value as choice.name for choice in field.choices">
+							</select>
+
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-center">
+			<button class="btn btn-success" ng-disabled="ticketForm.$invalid">Submit</button>
+	</form>
+</div>
