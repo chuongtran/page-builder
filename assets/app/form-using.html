@@ -1,10 +1,11 @@
-<h1>aaa</h1>
 <div class="container">
-	<form name="ticketForm">
+	<form name="ticketForm" id="main-form" ng-submit="submitForm()">
 		<div class="sections">
-			<div ng-repeat="section in usingSections">
-				<h3>{{section.name}}</h3>
-				<p class="description">{{section.description}}</p>
+			<div class="section" ng-repeat="section in usingSections">
+				<!-- <h3>{{section.name}}</h3> -->
+				<h3 class="description">	
+					{{section.description}}
+				</h3>
 				<div class="section-fields row" ng-show="section.fields.length">
 					<div ng-repeat="field in section.fields" class="col-md-4 col-sm-6">
 						<label ng-if="field.type=='text' || field.type=='email'" class="clearfix">

@@ -34,6 +34,7 @@ module.exports = {
       function (cb) {
         Field.destroy({id: params.fieldId}, function (err) {
           if (err) {
+            console.log(err);
             return cb(err);
           }
           cb(null, {});
@@ -44,18 +45,19 @@ module.exports = {
           fieldId: params.fieldId
         }, function (err, result) {
           if (err) {
+            console.log(err);
             return cb(err);
           }
           cb(null, {});
         })
-      },
-      function (err, result) {
+      }], function (err, result) {
         if (err) {
+          console.log(err);
           return res.status(400).json(err);
         }
         res.status(200).json({status: "SUCCESS"});
       }
-    ])
+    )
    
   },
 

@@ -29,12 +29,16 @@
 					<li ng-repeat="field in prebuildFields track by $index">
 						<span>{{$index+1}}&nbsp;&nbsp;</span>
 						<span>{{field.name}}</span>
-						<a class="pull-right" ng-click="removePrebuildField(field);"><i class="fa fa-remove"></i></a>
+						<span class="pull-right">
+							<a class="" ng-click="openEditPrebuildFieldPopup(field)"><i class="fa fa-pencil"></i></a>
+							&nbsp;
+							<a class="" ng-click="removePrebuildField(field);"><i class="fa fa-remove"></i></a>
+						</span>
 
 					</li>
 				</ul>
 				<div class="text-center">
-					<button ng-click="openAddPrebuildPopup()" class="btn btn-primary">Add new prebuild field</button>
+					<button ng-click="addNewPrebuildField()" class="btn btn-primary">Add new prebuild field</button>
 				</div>
 			</div>
 			<div class="box text-center">

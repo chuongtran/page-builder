@@ -60,16 +60,60 @@ module.exports = {
 
   addFieldToSection: function (req, res) {
     var params = req.params.all();
-
+    console.log(params)
     async.auto({
       addField: function (cb) {
-        Field.create(params, function (err, newField) {
+        Field.create({
+          sectionId: params.sectionId,
+          order: params.order,
+          isTemplate: false,
+          name: params.name,
+          isLocked: false,
+          required: params.required,
+          type: params.type
+        }, function (err, newField) {
           if (err) {
             return cb(err);
           }
           return cb(null, newField)
         })
       },
+      getChoices: ['addField', function (cb, results) {
+        Choice.find({fieldId: params.id}, function (err, choices) {
+          if (err) {
+            return cb(err);
+          }
+          return cb(null, choices);
+        })
+      }],
+      addNewChoices: ['getChoices', function (cb, results) {
+        var choices = results.getChoices;
+        var subAsyncArr = [];
+        var newChoices = [];
+        _.forEach(choices, function (choice) {
+          subAsyncArr.push(function (subCb) {
+            Choice.create({
+              name: choice.name,
+              fieldId: results.addField.id,
+              sectionToAdd: null,
+              value: choice.value
+            }, function (err, newChoice) {
+              if (err) {
+                return subCb(err);
+              }
+              newChoices.push(newChoice);
+              subCb(null, newChoice);
+            })
+          })
+        })
+        async.auto(subAsyncArr, function (err, results) {
+          if (err) {
+            return cb(err);
+          }
+          console.log(newChoices);
+          return cb(null, newChoices);
+        });
+      }],
       updateOtherFields: function (cb) {
         var sql = 'UPDATE field SET `order` = `order`+1 WHERE `sectionId` = ? AND `order` >= ?';
         Field.query(sql, [params.sectionId, params.order], function (err, fields) {
@@ -80,6 +124,7 @@ module.exports = {
         })
       },
     }, function (err, results) {
+      console.log(results);
       if (err) {
         return res.status(400).json(err);
       }

@@ -62,7 +62,7 @@ appModule
     })
   }
 ])
-.controller('HomeFormBuilderCtrl', function ($rootScope, $scope, $timeout, AlertService, ModalService, Restangular, sections, fields, choices, $uibModal) {
+.controller('HomeFormBuilderCtrl', function ($rootScope, $scope, $state, $timeout, AlertService, ModalService, Restangular, sections, fields, choices, $uibModal) {
   $scope.choices = choices;
   $scope.groupedChoices = _.groupBy($scope.choices, 'fieldId');
   _.forEach(fields, function (field) {
@@ -167,14 +167,39 @@ appModule
     })
   }
 
+  $scope.openEditPrebuildFieldPopup = function (field) {
+    ModalService.showAddPrebuildFieldPopup(false, field).result.then(function (updatedField) {
+      if (updatedField) {
+        swal('DONE','','success');
+      }
+    })
+  }
+
 
   // Sortable
+  $scope.addNewPrebuildField = function () {
+    var newField = {
+      name: 'New Field',
+      isLocked: false,
+      isTemplate: true,
+      type: 'text',
+      sectionId: null,
+      order: 0,
+      required: false,
+    }
+    Restangular.one('fields').post('', newField).then(function (addedField) {
+      $scope.prebuildFields.push(addedField);      
+    })
+  }
   var addFieldToSection = function (field, sectionId, order) {
     var tmpField = _.pick(field, 'isLocked', 'name', 'required', 'type');
     tmpField.sectionId = sectionId;
     tmpField.order = order || 0;
     tmpField.isTemplate = false;
-    Restangular.one('sections').one(String(sectionId)).post('fields', tmpField);
+    tmpField.id = field.id;
+    Restangular.one('sections').one(String(sectionId)).post('fields', tmpField).then(function () {
+      $state.reload();
+    });
   }
 
   $scope.prebuildSortable = {
@@ -196,7 +221,7 @@ appModule
 })
 
 angular.module('CMSApp.form-using', ['ui.select2'])
-.controller('FormUsingCtrl', function ($rootScope, $scope, sections, choices, fields) {
+.controller('FormUsingCtrl', function ($rootScope, $scope, sections, choices, fields, $uibModal) {
   $scope.sections = sections;
   $scope.choices = choices;
   $scope.fields = fields;
@@ -291,8 +316,6 @@ angular.module('CMSApp.form-using', ['ui.select2'])
     'tags': ['tag1', 'tag2', 'tag3', 'tag4'] 
   }
 
-
-
   $scope.groupSetup = {
     multiple: true,
     formatSearching: 'Searching the group...',
@@ -300,6 +323,24 @@ angular.module('CMSApp.form-using', ['ui.select2'])
   }
 
   $scope.field = {};
+
+  $scope.submitForm = function () {
+    $uibModal.open({
+      templateUrl: 'app/templates/form-submittion-results.html',
+      resolve: {
+        formData: function () {
+          return $scope.form;
+        }
+      },
+      controller: function ($scope, formData, $uibModalInstance) {
+        $scope.formData = formData;
+        $scope.cancel = function () {
+          $uibModalInstance.close();
+        }
+      }
+    })
+
+  }
 })
 
 .constant('StaticParams', {
