@@ -220,7 +220,7 @@ appModule
   }
 })
 
-angular.module('CMSApp.form-using', ['ui.select2'])
+angular.module('CMSApp.form-using', ['ui.select2', 'ui.select'])
 .controller('FormUsingCtrl', function ($rootScope, $scope, sections, choices, fields, $uibModal) {
   $scope.sections = sections;
   $scope.choices = choices;
@@ -339,8 +339,8 @@ angular.module('CMSApp.form-using', ['ui.select2'])
         }
       }
     })
-
   }
+ 
 })
 
 .constant('StaticParams', {
