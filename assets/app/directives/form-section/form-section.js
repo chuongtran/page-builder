@@ -8,6 +8,7 @@ angular.module('CMSApp.directives')
 	}
 })
 .controller('formSectionCtrl', function ($scope, StaticParams, Restangular, AlertService) {
+	if (!$scope.section) return;
 	$scope.types = StaticParams.types;
 	$scope.newField = {
 		name: 'New Field',
@@ -78,6 +79,9 @@ angular.module('CMSApp.directives')
 		$scope.updateChoice(choice)
 	}, 300);
 	$scope.updateChoice = function (choice) {
+		if (choice.sectionToAdd == '') {
+			choice.sectionToAdd = null;
+		}
 		Restangular.one('choices').post(choice.id, choice);
 	}
 
