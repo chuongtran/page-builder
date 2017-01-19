@@ -31,33 +31,6 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-
-  'get /api/v1/sections': 'SectionController.getAll',
-  'post /api/v1/sections': 'SectionController.create',
-  'post /api/v1/sections/:sectionId': 'SectionController.update',
-  'delete /api/v1/sections/:sectionId': 'SectionController.delete',
-  'post /api/v1/sections/:sectionId/fields': 'SectionController.addFieldToSection',
-  'delete /api/v1/sections/:sectionId/fields/:fieldId': 'SectionController.removeFieldFromSection',
-  'post /api/v1/sections/:sectionId/reorder': 'SectionController.reOrder',
-
-
-
-
-  'get /api/v1/fields': 'FieldController.getAll',
-  'post /api/v1/fields': 'FieldController.create',
-  'post /api/v1/fields/:fieldId': 'FieldController.update',
-  'delete /api/v1/fields/:fieldId': 'FieldController.delete',
-
-
-  'get /api/v1/types': 'TypeController.getAll',
-
-
-  
-  'get /api/v1/choices': 'ChoiceController.getAll',
-  'post /api/v1/choices': 'ChoiceController.create',
-  'post /api/v1/choices/:choiceId': 'ChoiceController.update',
-  'delete /api/v1/choices/:choiceId': 'ChoiceController.delete',
-
   'get /*': {
     controller: 'IndexController',
     action: 'userhome',
