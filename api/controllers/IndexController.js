@@ -3,8 +3,8 @@ process.on('uncaughtException', function (error) {
 });
 var http = require('http');
 module.exports = {
-	userhome: function(req, res) {
-    res.view('homepage');
+	index: function(req, res) {
+    res.view('index');
   },
   redirect: function(req,res,next) {
     var routes = staticRoutes.routes();

@@ -37,9 +37,10 @@ var jsFilesToInject = [
   'vendor/moment/moment.js',
   'vendor/lodash/js/lodash.js',
   'vendor/**/*.js',
-  'app/templates-app.userPage.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
+  'app/templates-app.userPage.js',
+  'app/app.js',
   'app/*.js',
   'app/**/*.js',
   'services/**/*.js'

@@ -31,11 +31,8 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-  'get /*': {
-    controller: 'IndexController',
-    action: 'userhome',
-    skipAssets: true
-  },
+  'get /:staticRoute': 'IndexController.redirect',
+  '/': 'IndexController.index'
 
   /***************************************************************************
   *                                                                          *
