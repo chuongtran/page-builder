@@ -12,6 +12,11 @@ module.exports = {
       type: 'string',
       required: true
     },
+    slug: {
+      type: 'string',
+      unique: true,
+      required: true
+    },
     content: {
       type: 'string'
     },

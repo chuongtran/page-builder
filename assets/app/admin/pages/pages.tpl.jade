@@ -1,0 +1,26 @@
+h1(layout) 
+  span(flex) Pages
+  md-button.md-raised(ui-sref="home.admin.pages.new") Add New
+md-card(flex, layout="column")
+  md-table-container(layout, flex)
+    table(md-table, flex)
+      thead(md-head, md-order="query.order")
+        tr(md-row)
+          th(md-column) Title
+          th(md-column) Slug
+          th(md-column) Created At
+          th(md-column) Is Front page
+        tbody(md-body)
+          tr(md-row, ng-repeat="page in pages")
+            td(md-cell) {{page.title}}
+            td(md-cell) {{page.slug}}
+            td(md-cell) {{page.createdAt}}
+            td(md-cell)
+              md-radio-group(ng-model="global.frontPageId", ng-change="updateFrontPage()")
+                md-radio-button(ng-value="page.id")
+            td.text-right(md-cell, layout, layout-align="end center")
+              md-button.md-icon-button(ui-sref="home.admin.pages.page({pageId: page.id})", layout, layout-align="center center")
+                i.fa.fa-pencil
+              md-button.md-icon-button
+                i.fa.fa-remove
+  md-table-pagination(md-label="{{options.label}}" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{testResults.length}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="options.changePage()")

@@ -1,0 +1,14 @@
+h1 {{page.pageId ? 'Edit Page' : 'New Page'}}
+div(layout)
+  md-card(flex="50")
+    md-card-content
+      div(layout)
+        md-input-container(flex)
+          label Title
+          input(ng-model="page.title" ng-blur="generateSlug()")
+      div(layout)
+        md-input-container(flex)
+          label Slug
+          input(ng-model="page.slug")
+    div.text-center
+      md-button.md-raised(ng-click="updatePage()") Submit

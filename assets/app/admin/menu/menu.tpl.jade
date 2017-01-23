@@ -1,0 +1,11 @@
+h1 MENU
+div(layout, flex)
+  md-card(flex, layout-padding)
+    h3 Pages
+    .pages( ui-sortable="pageTabSortable", ng-model="pages")
+      div(ng-repeat="page in pages")
+        span {{page.title}}
+  md-card(flex, layout-padding)
+    h3 Tabs
+    div.tabs(style="padding-bottom: 20px;", ui-sortable="tabSortable", ng-model="activePages")
+      div(ng-repeat="tab in activePages") {{tab.title}}

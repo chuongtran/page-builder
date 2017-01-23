@@ -31,8 +31,30 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-  'get /:staticRoute': 'IndexController.redirect',
-  '/': 'IndexController.index'
+  
+  
+  'get /api/v1/pages': 'PageController.get',
+  'post /api/v1/pages': 'PageController.create',
+  'post /api/v1/pages/:pageId': 'PageController.update',
+  'post /api/v1/pages/:pageId/updateFrontPage': 'PageController.updateFrontPage',
+  'get /api/v1/pages/:pageId': 'PageController.getOne',
+
+  'get /api/v1/posts': 'PostController.get',
+  'post /api/v1/posts': 'PostController.create',
+  'post /api/v1/posts/:postId': 'PostController.update',
+  'get /api/v1/posts/:postId': 'PostController.getOne',
+
+
+  'get /api/v1/menutabs': 'MenuController.get',
+  'post /api/v1/menutabs': 'MenuController.create',
+  'post /api/v1/menutabs/:menuTabId': 'MenuController.update',
+  'get /api/v1/menutabs/:menuTabId': 'MenuController.getOne',
+
+  'get /*': {
+    controller: 'IndexController',
+    action: 'index',
+    skipAssets: true
+  }
 
   /***************************************************************************
   *                                                                          *

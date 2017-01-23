@@ -1,0 +1,21 @@
+div(layout)
+  md-sidenav.md-sidenav-left.full-height(
+          md-component-id="left"
+          md-is-locked-open="$mdMedia('gt-md')"
+          md-whiteframe="4" )
+    md-toolbar
+    ul.menu
+      li.spacer
+      li
+        md-button(ui-sref="home.admin.pages", ui-sref-active="active")
+          i.fa.fa-copy
+          | Pages
+      li
+        md-button(ui-sref="home.admin.posts", ui-sref-active="active")
+          i.fa.fa-file-text-o
+          | Posts
+      li
+        md-button(ui-sref="home.admin.menu", ui-sref-active="active")
+          i.fa.fa-file-text-o
+          | Menu
+  md-content.full-height.bg-black-50(ui-view="admin-content", layout="column", flex, layout-padding)

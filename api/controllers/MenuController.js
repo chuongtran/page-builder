@@ -1,13 +1,13 @@
 /**
- * PostController
+ * MenuController
  *
- * @description :: Server-side logic for managing posts
+ * @description :: Server-side logic for managing menus
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
 module.exports = {
 	get: function (req, res) {
-    Post.find({}, function (err, results) {
+    Menu.find({}, function (err, results) {
       if (err) {
         return res.status(500).json(err);
       }
@@ -17,7 +17,7 @@ module.exports = {
 
   getOne: function (req, res) {
     var params = req.params.all();
-    Post.findOne({id: params.postId}, function (err, result) {
+    Menu.findOne({id: params.menuTabId}, function (err, result) {
       if (err) {
         return res.status(400).json(err);
       }
@@ -25,11 +25,10 @@ module.exports = {
     })
   },
 
-
   create: function (req, res) {
     var params = req.params.all();
     console.log(params);
-    Post.create(params, function (err, result) {
+    Menu.create(params, function (err, result) {
       if (err) {
         return res.status(400).json(err);
       }
@@ -39,11 +38,9 @@ module.exports = {
 
   update: function (req, res) {
     var params = req.params.all();
-    Post.update({id: params.postId}, {
-      title: params.title,
-      slug: params.slug,
-      content: params.content,
-      isPublished: params.isPublished,
+    Menu.update({id: params.menutabId}, {
+      pageId: params.pageId,
+      order: params.order
     }, function (err, result) {
       if (err) {
         return res.status(400).json(err);

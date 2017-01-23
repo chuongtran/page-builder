@@ -4,6 +4,9 @@ var appModule = angular.module('app', [
   'templates-app',
   'app.admin',
   'app.front',
+  'ngMaterial',
+  'md.data.table',
+  'ui.sortable'
 ])
 angular.module('app.admin', []);
 angular.module('app.front', []);
@@ -29,7 +32,18 @@ appModule
         views: {
           'content@home': {
             controller: 'AdminCtrl',
-            templateUrl: 'app/admin/dashboard.tpl.jade'
+            templateUrl: 'app/admin/admin.tpl.jade'
+          },
+        },
+        resolve: {
+          pages: function (Restangular) {
+            return Restangular.one('pages').get('');
+          },
+          posts: function (Restangular) {
+            return Restangular.one('posts').get('');
+          },
+          menuTabs: function (Restangular) {
+            return Restangular.one('menutabs').get('');
           }
         }
       });
@@ -44,3 +58,29 @@ appModule
         }
       })
     }])
+  // END CONFIG
+
+  .constant('StaticParams', {
+    tableQuery : {
+      order: '-id',
+      limit: 8,
+      page: 1,
+      offset: 0,
+    },
+    tableOptions: {
+      rowSelection: true,
+      multiSelect: true,
+      autoSelect: true,
+      decapitate: false,
+      largeEditDialog: false,
+      boundaryLinks: false,
+      limitSelect: true,
+      pageSelect: true,
+      limitOptions: [8, 16, 24],
+      label: {
+        page: 'Page:',
+        rowsPerPage: 'Per Page:',
+        of: '/' 
+      }
+    },
+  })
