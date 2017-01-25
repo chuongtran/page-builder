@@ -35,6 +35,7 @@ angular.module('app.admin')
     page.order = tab.order;
     return page;
   });
+  $scope.activePages = _.sortBy($scope.activePages, 'order');
 
   $scope.pageTabSortable = {
     connectWith: '.tabs',
@@ -46,7 +47,6 @@ angular.module('app.admin')
           order: sortable.dropindex
         })
       }
-      console.log(sortable);
     }
   }
   $scope.tabSortable = {
@@ -54,12 +54,17 @@ angular.module('app.admin')
     stop: function (e, ui) {
       var sortable = ui.item.sortable;
       if (sortable.droptarget.hasClass('tabs')) {
-        // Restangular.one('menutabs').post('updateSequence', {
-        //   ids: _.map($scope.activePages, 'id')
-        // })
+        Restangular.one('menutabs').post('updateOrder', {
+          menuTabs: _.map($scope.activePages, function (page, index) {
+            return {
+              pageId: page.id,
+              order: index
+            }
+          })
+        })
       }
       else {
-        // Restangular.one('')
+        Restangular.one('menutabs').one('deleteByPageId').customDELETE(sortable.model.id);
       }
     }
   }

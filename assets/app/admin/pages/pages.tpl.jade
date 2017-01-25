@@ -10,6 +10,7 @@ md-card(flex, layout="column")
           th(md-column) Slug
           th(md-column) Created At
           th(md-column) Is Front page
+          th(md-column) Is Blog page
         tbody(md-body)
           tr(md-row, ng-repeat="page in pages")
             td(md-cell) {{page.title}}
@@ -17,6 +18,9 @@ md-card(flex, layout="column")
             td(md-cell) {{page.createdAt}}
             td(md-cell)
               md-radio-group(ng-model="global.frontPageId", ng-change="updateFrontPage()")
+                md-radio-button(ng-value="page.id")
+            td(md-cell)
+              md-radio-group(ng-model="global.blogPageId", ng-change="updateBlogPage()")
                 md-radio-button(ng-value="page.id")
             td.text-right(md-cell, layout, layout-align="end center")
               md-button.md-icon-button(ui-sref="home.admin.pages.page({pageId: page.id})", layout, layout-align="center center")

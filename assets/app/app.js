@@ -24,7 +24,7 @@ appModule
           'main': {
             template: '<div ui-view="content"></div>'
           }
-        },
+        }
       });
 
       $stateProvider.state('home.admin', {
@@ -39,9 +39,6 @@ appModule
           pages: function (Restangular) {
             return Restangular.one('pages').get('');
           },
-          posts: function (Restangular) {
-            return Restangular.one('posts').get('');
-          },
           menuTabs: function (Restangular) {
             return Restangular.one('menutabs').get('');
           }
@@ -54,6 +51,17 @@ appModule
           'content@home': {
             controller: 'FrontCtrl',
             templateUrl: 'app/front/front.tpl.jade'
+          }
+        },
+        resolve: {
+          pages: function (Restangular) {
+            return Restangular.one('pages').get('');
+          },
+          posts: function (Restangular) {
+            return Restangular.one('posts').get('');
+          },
+          menuTabs: function (Restangular) {
+            return Restangular.one('menutabs').one('getWithPageTitle').get('');
           }
         }
       })

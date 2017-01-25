@@ -24,6 +24,10 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false
     },
+    isBlog: {
+      type: 'boolean',
+      defaultsTo: false
+    },
     order: {
       type: 'integer',
       defaultsTo: 0

@@ -37,6 +37,7 @@ module.exports.routes = {
   'post /api/v1/pages': 'PageController.create',
   'post /api/v1/pages/:pageId': 'PageController.update',
   'post /api/v1/pages/:pageId/updateFrontPage': 'PageController.updateFrontPage',
+  'post /api/v1/pages/:pageId/updateBlogPage': 'PageController.updateBlogPage',
   'get /api/v1/pages/:pageId': 'PageController.getOne',
 
   'get /api/v1/posts': 'PostController.get',
@@ -47,8 +48,11 @@ module.exports.routes = {
 
   'get /api/v1/menutabs': 'MenuController.get',
   'post /api/v1/menutabs': 'MenuController.create',
+  'post /api/v1/menutabs/updateOrder': 'MenuController.updateOrder',
   'post /api/v1/menutabs/:menuTabId': 'MenuController.update',
-  'get /api/v1/menutabs/:menuTabId': 'MenuController.getOne',
+  // 'get /api/v1/menutabs/:menuTabId': 'MenuController.getOne',
+  'get /api/v1/menutabs/getWithPageTitle': 'MenuController.getWithPageTitle',
+  'delete /api/v1/menutabs/deleteByPageId/:pageId': 'MenuController.deleteByPageId',
 
   'get /*': {
     controller: 'IndexController',

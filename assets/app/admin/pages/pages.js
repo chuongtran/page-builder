@@ -23,8 +23,17 @@ angular.module('app.admin')
   })
   $scope.global.frontPageId = frontPage && frontPage.id || 0;
 
+  var blogPage = _.find($scope.pages, function (page) {
+    return page.isBlog;
+  })
+  $scope.global.blogPageId = blogPage && blogPage.id || 0;
+
   $scope.updateFrontPage = function () {
     Restangular.one('pages').one(String($scope.global.frontPageId)).post('updateFrontPage');
+  }
+
+  $scope.updateBlogPage = function () {
+    Restangular.one('pages').one(String($scope.global.blogPageId)).post('updateBlogPage');
   }
 
 })

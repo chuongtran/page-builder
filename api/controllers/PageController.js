@@ -79,6 +79,34 @@ module.exports = {
       }
       res.status(200).json({status: 'SUCCESS'});
     })
+  },
+
+  updateBlogPage: function (req, res) {
+    var params = req.params.all();
+    var updateOldPage = function (cb) {
+      Page.update({isBlog: true}, {isBlog: false}, function (err, result) {
+        if (err) {
+          return cb(err);
+        }
+        cb(null, result);
+      });
+    }
+    var updateNewPage = function (cb) {
+      Page.update({id: params.pageId}, {isBlog: true}, function (err, result) {
+        if (err) {
+          return cb(err);
+        }
+        cb(null, result);
+      });
+    }
+    async.auto([
+     updateOldPage, updateNewPage
+    ], function (err, result) {
+      if (err) {
+        return res.status(400).json(err);
+      }
+      res.status(200).json({status: 'SUCCESS'});
+    })
   }
 };
 

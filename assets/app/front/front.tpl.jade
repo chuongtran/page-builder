@@ -1,2 +1,5 @@
-h1 Test
-h2 Front end
+nav#main-nav
+  ul
+    li(ng-repeat="tab in menuTabs")
+      a(ui-sref="home.front.page({pageId: tab.pageId})") {{tab.title}}
+div(ui-view="front-content")
