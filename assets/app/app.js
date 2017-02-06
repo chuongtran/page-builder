@@ -6,7 +6,9 @@ var appModule = angular.module('app', [
   'app.front',
   'ngMaterial',
   'md.data.table',
-  'ui.sortable'
+  'ui.sortable',
+  'ui.tinymce',
+  'ngSanitize'
 ])
 angular.module('app.admin', []);
 angular.module('app.front', []);

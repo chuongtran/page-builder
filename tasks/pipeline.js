@@ -33,10 +33,14 @@ var jsFilesToInject = [
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
   'vendor/jquery/jquery.js',
+  'vendor/tinymce/tinymce.js',
   'vendor/angular/angular.js',
   'vendor/moment/moment.js',
   'vendor/lodash/js/lodash.js',
   'vendor/**/*.js',
+  // '!vendor/tinymce/*.js',
+  '!vendor/tinymce/plugins/**/*.js',
+  '!vendor/tinymce/themes/**/*.js',
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
   'app/templates-app.userPage.js',
@@ -68,12 +72,41 @@ var templateFilesToInject = [
 // Prefix relative paths to source files so they point to the proper locations
 // (i.e. where the other Grunt tasks spit them out, or in some cases, where
 // they reside in the first place)
+
+// Workaround for ignoring file
+function calculatePath(concatStr, path) {
+  if (path && path.length && path[0] === '!')
+    return ['!', concatStr, path.substr(1)].join('');
+  return concatStr + path;
+}
+
 module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
-  return '.tmp/public/' + path;
+  return calculatePath('.tmp/public/', path);
 });
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
-  return '.tmp/public/' + path;
+  return calculatePath('.tmp/public/', path);
 });
 module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {
-  return 'assets/' + path;
+  return calculatePath('assets/', path);
 });
+
+
+
+
+// module.exports.cssFilesToInject = function(page) {
+//   return modules[page].cssFilesToInject.map(function(path) {
+//     return calculatePath('.tmp/public/', path);
+//   });
+// };
+
+// module.exports.jsFilesToInject = function(page) {
+//   return modules[page].jsFilesToInject.map(function(path) {
+//     return calculatePath('.tmp/public/', path);
+//   });
+// };
+
+// module.exports.templateFilesToInject = function(page) {
+//   return modules[page].templateFilesToInject.map(function(path) {
+//     return calculatePath('assets/', path);
+//   });
+// }

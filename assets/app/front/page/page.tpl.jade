@@ -1,7 +1,7 @@
 .container
   h1 {{page.title}}
   div.content(style="white-space: pre-line;", ng-if="!page.isBlog")
-    div {{page.content}}
+    div(ng-bind-html="page.content")
   div.content(ng-if="page.isBlog")
     .posts
       div(ng-repeat="post in posts")

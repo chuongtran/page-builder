@@ -18,7 +18,7 @@ module.exports = {
       required: true
     },
     content: {
-      type: 'string'
+      type: 'longtext'
     },
     isFront: {
       type: 'boolean',

@@ -11,8 +11,9 @@ div(layout)
           label Slug
           input(ng-model="page.slug")
       div(layout)
-        md-input-container(flex)
-          label Content
-          textarea(ng-model="page.content")
+        //- md-input-container(flex)
+        //-   label Content
+        //-   textarea(ng-model="page.content")
+        textarea(ui-tinymce, ng-model="page.content")
     div.text-center
       md-button.md-raised(ng-click="updatePage()") Submit
